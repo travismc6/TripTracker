@@ -10,3 +10,4 @@ obj
 *.db
 .vs
 node_modules 
+/obj
