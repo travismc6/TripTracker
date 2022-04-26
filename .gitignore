@@ -3,4 +3,10 @@
 ################################################################################
 
 /.vs/TripTracker
-/TripTracker/bin/Debug/net6.0
+bin
+obj
+.vscode
+.DS_Store
+*.db
+.vs
+node_modules 
