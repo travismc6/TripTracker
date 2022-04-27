@@ -10,16 +10,16 @@ namespace TripTracker.Data
         }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    var configuration = new ConfigurationBuilder()
+        //        .SetBasePath(Directory.GetCurrentDirectory())
+        //        .AddJsonFile("appsettings.json")
+        //        .Build();
 
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer(connectionString);
-        }
+        //    var connectionString = configuration.GetConnectionString("DefaultConnection");
+        //    optionsBuilder.UseSqlServer(connectionString);
+        //}
 
         public DbSet<Trip> Trips { get; set; }
         public DbSet<Attendee> Attendees { get; set; }

@@ -13,3 +13,4 @@ node_modules
 /obj
 */obj/*
 obj/
+/obj/Debug/*

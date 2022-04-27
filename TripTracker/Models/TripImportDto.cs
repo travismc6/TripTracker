@@ -8,6 +8,8 @@
         public string Stage { get; set; }
         public string FlowString { get; set; }
         public string StartName { get; set; }
+        public string StartCoordinates { get; set; }
+        public string EndCoordinates { get; set; }
         public string EndName { get; set; }
         public string TimeString { get; set; }
         public string DistanceMiles { get; set; }

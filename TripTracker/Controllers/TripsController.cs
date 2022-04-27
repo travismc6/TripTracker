@@ -29,9 +29,15 @@ namespace TripTracker.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTrips()
         {
-            var trips = await _tripService.GetTrips();
+            try
+            {
+                var trips = await _tripService.GetTrips();
 
-            return Ok(trips);
+                return Ok(trips);
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

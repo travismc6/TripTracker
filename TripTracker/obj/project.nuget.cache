@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vc1NVAjL9Ehk3tE8NmWuImHCoqcMcl6c+39RnDbo3dP/hHJkH3sKhf44wuUUyy2mDUBWs+7kR6lXiosCW50SBQ==",
+  "dgSpecHash": "sOUs2Laq5CErh2Hat9epAn8RdMeSTD7qiCrSJl3hUb9p4vLXmTtObChBP6eNARH95tYhyU/J6vF40r3QbJOHPQ==",
   "success": true,
   "projectFilePath": "C:\\Dev\\TripTracker\\TripTracker\\TripTracker.csproj",
   "expectedPackageFiles": [
@@ -16,6 +16,7 @@
     "C:\\Users\\mcghe\\.nuget\\packages\\microsoft.entityframeworkcore.design\\6.0.4\\microsoft.entityframeworkcore.design.6.0.4.nupkg.sha512",
     "C:\\Users\\mcghe\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.4\\microsoft.entityframeworkcore.relational.6.0.4.nupkg.sha512",
     "C:\\Users\\mcghe\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\6.0.4\\microsoft.entityframeworkcore.sqlserver.6.0.4.nupkg.sha512",
+    "C:\\Users\\mcghe\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\6.0.0\\microsoft.entityframeworkcore.tools.6.0.0.nupkg.sha512",
     "C:\\Users\\mcghe\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\mcghe\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\mcghe\\.nuget\\packages\\microsoft.extensions.caching.memory\\6.0.1\\microsoft.extensions.caching.memory.6.0.1.nupkg.sha512",

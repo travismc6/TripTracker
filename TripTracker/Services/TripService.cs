@@ -50,7 +50,8 @@ namespace TripTracker.Services
 
                                     Stage = tripDto.Stage,
                                     StartName = tripDto.StartName,
-                                    // start coordinates
+                                    StartCoordiantes = tripDto.StartCoordinates,
+                                    EndCoordinates = tripDto.EndCoordinates,
                                     EndName = tripDto.EndName,
                                     // end coordinates
                                     //distance miles
