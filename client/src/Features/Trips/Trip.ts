@@ -6,6 +6,9 @@ export interface TripListItem {
     state: string;
     year: number;
     stage: string;
+    flow:string;
     startName: string;
     endName: string;
+    endCoordinates:string;
+    startCoordinates:string;
 }

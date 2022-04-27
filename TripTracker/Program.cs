@@ -20,7 +20,8 @@ var app = builder.Build();
 
 app.UseCors(x => x.AllowAnyHeader()
       .AllowAnyMethod()
-      .WithOrigins("http://localhost:3000"));
+      .WithOrigins(new []{
+    "http://localhost:3000", "https://kayak-trip-tracker.herokuapp.com"}));
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
