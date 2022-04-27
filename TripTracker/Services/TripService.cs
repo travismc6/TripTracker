@@ -53,8 +53,6 @@ namespace TripTracker.Services
                                     StartCoordinates = tripDto.StartCoordinates,
                                     EndCoordinates = tripDto.EndCoordinates,
                                     EndName = tripDto.EndName,
-                                    // end coordinates
-                                    //distance miles
                                     MeasuredAt = tripDto.MeasuredAt,
                                     Notes = tripDto.Notes
                                 };

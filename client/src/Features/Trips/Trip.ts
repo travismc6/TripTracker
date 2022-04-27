@@ -11,4 +11,6 @@ export interface TripListItem {
     endName: string;
     endCoordinates:string;
     startCoordinates:string;
+    distanceMiles:number;
+    timeMinutes:number;
 }

@@ -3,11 +3,7 @@ import { useEffect, useState } from "react";
 import { TripListItem } from "./Trip";
 import {
   DataGrid,
-  GridActionsCellItem,
-  GridColDef,
-  GridRowParams,
-  GridRowsProp,
-  GridValueGetterParams,
+  GridColDef
 } from "@mui/x-data-grid";
 import { Button, Link, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import TripMap from "./TripMap";
@@ -20,6 +16,8 @@ export default function TripList() {
     { field: "year", headerName: "Year", minWidth: 100 },
     { field: "river", headerName: "River", minWidth: 100, flex: 1 },
     { field: "state", headerName: "State", minWidth: 100 },
+    { field: "distanceMiles", headerName: "Distance (mi)" },
+    { field: "timeMinutes", headerName: "Time (min)" },
     { field: "stage", headerName: "Stage" },
     { field: "flow", headerName: "Flow" },
     {
