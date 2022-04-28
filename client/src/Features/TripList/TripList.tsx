@@ -1,10 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { TripListItem } from "./Trip";
-import {
-  DataGrid,
-  GridColDef
-} from "@mui/x-data-grid";
+import { getTimeString, TripListItem } from "./Trip";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Button, Link, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import TripMap from "./TripMap";
 
@@ -14,10 +11,34 @@ export default function TripList() {
 
   const columns: GridColDef[] = [
     { field: "year", headerName: "Year", minWidth: 100 },
-    { field: "river", headerName: "River", minWidth: 100, flex: 1 },
+    {
+      field: "river",
+      headerName: "River",
+      minWidth: 100,
+      flex: 1,
+      renderCell: (cellValues) => {
+        const startString: string = cellValues.row.startCoordinates.replace(
+          /\s/g,
+          ""
+        );
+
+        return (
+          <Link  href={"/tripDetails/" + cellValues.row.id}>
+            {cellValues.row.river}
+          </Link>
+        );
+      },
+    },
     { field: "state", headerName: "State", minWidth: 100 },
     { field: "distanceMiles", headerName: "Distance (mi)" },
-    { field: "timeMinutes", headerName: "Time (min)" },
+    {
+      field: "timeMinutes",
+      headerName: "Time",
+      flex: 1,
+      renderCell: (params) => {
+        return getTimeString(params.row.timeMinutes);
+      },
+    },
     { field: "stage", headerName: "Stage" },
     { field: "flow", headerName: "Flow" },
     {
@@ -75,6 +96,7 @@ export default function TripList() {
         <Button variant="contained">Add Trip</Button>
 
         <ToggleButtonGroup
+          sx={{ marginLeft: 5, marginTop: 2, marginBottom: 2 }}
           color="primary"
           value={view}
           exclusive
@@ -97,7 +119,7 @@ export default function TripList() {
             rowsPerPageOptions={[5]}
           />
         )}
-        {view === "map" && <TripMap />}
+        {view === "map" && <TripMap tripList={tripList} />}
       </div>
     </>
   );
