@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { getTimeString, TripListItem } from "../Models/Trip";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Button, Link, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { TripListItem } from "../Models/Trip";
+import { Button, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import TripMap from "./TripMap";
 import TripGrid from "./TripGrid";
 

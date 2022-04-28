@@ -3,8 +3,8 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { getTimeString, TripListItem } from "../Models/Trip";
 
 interface Props {
-    tripList: readonly TripListItem[];
-  }
+  tripList: readonly TripListItem[];
+}
 
 export default function TripGrid({ tripList }: Props) {
   const columns: GridColDef[] = [

@@ -15,7 +15,7 @@ function App() {
       <Container>
         <Routes>
           <Route path='/' element={<TripList />} />
-          <Route path='/tripDetails/:id' element={<TripDetails />} />
+          <Route path='/tripDetails/:id' element={<TripDetails  />} />
         </Routes>
       </Container>
     </>
