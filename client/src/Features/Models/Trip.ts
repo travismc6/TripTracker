@@ -1,5 +1,3 @@
-import { integerPropType } from "@mui/utils";
-
 export interface TripListItem {
     id: number;
     river: string;

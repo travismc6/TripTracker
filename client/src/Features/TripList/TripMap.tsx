@@ -13,7 +13,7 @@ import {
   Marker,
 } from "@react-google-maps/api";
 import { useEffect, useRef, useState } from "react";
-import { getLatitude, getLongitude, getTimeString, TripListItem } from "./Trip";
+import { getLatitude, getLongitude, getTimeString, TripListItem } from "../Models/Trip";
 
 interface Props {
   tripList: readonly TripListItem[];
