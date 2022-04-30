@@ -12,7 +12,7 @@ export interface TripListItem {
     startCoordinates:string;
     distanceMiles:number;
     timeMinutes:number;
-    notes:number;
+    notes: string;
 }
 
 export const getLatitude = (coordinates: string) => {
@@ -42,4 +42,12 @@ export const getTimeString = (totalMinutes: number) => {
     }
 
     return time;
+};
+
+export const getDateString = (date: Date | null, year: number) => {
+    if(date){
+        var d = new Date(date); // TODO figure out what date doesn't work
+        return `${(d.getMonth() + 1)}/${d.getDate()}/${d.getFullYear()}`
+    }
+    return year;
 };

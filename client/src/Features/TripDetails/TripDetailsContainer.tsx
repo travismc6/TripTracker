@@ -68,8 +68,8 @@ export default function TripDetailsContainer() {
     return (
       <>
         <div>
-        <Link to={"/"} >Back</Link>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Link to={"/"} ><Typography sx={{marginTop:2}}>Back</Typography></Link>
+          <Box sx={{ marginTop:2, borderBottom: 1, borderColor: "divider" }}>
             <Tabs value={tabValue} onChange={handleChange}>
               <Tab label="Details" {...a11yProps(0)} />
               <Tab label="Photos" {...a11yProps(1)} />
@@ -80,7 +80,7 @@ export default function TripDetailsContainer() {
             <TripDetails trip={trip} />
           </TabPanel>
           <TabPanel index={1} value={tabValue}>
-            Item Two
+            Coming soon...
           </TabPanel>
           <TabPanel index={2} value={tabValue}>
             Coming soon...
