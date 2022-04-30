@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import { apiRoot } from "../../App/Helpers/Helpers";
 import { TripListItem } from "../../App/Models/Trip";
 import TripDetails from "./TripDetails";
+import TripPhotos from "./TripPhotos";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -80,7 +81,7 @@ export default function TripDetailsContainer() {
             <TripDetails trip={trip} />
           </TabPanel>
           <TabPanel index={1} value={tabValue}>
-            Coming soon...
+            <TripPhotos trip={trip} />
           </TabPanel>
           <TabPanel index={2} value={tabValue}>
             Coming soon...

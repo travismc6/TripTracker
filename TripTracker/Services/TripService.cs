@@ -31,7 +31,7 @@ namespace TripTracker.Services
 
         public async Task<Trip> GetTripById(int id)
         {
-            var trips = _context.Trips.Where(r=> r.Id == id).AsQueryable();
+            var trips = _context.Trips.Where(r=> r.Id == id).Include(r => r.Photos).AsQueryable();
             return await trips.FirstAsync();
         }
 

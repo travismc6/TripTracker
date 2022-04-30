@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TripTracker.Data;
 
@@ -11,9 +12,10 @@ using TripTracker.Data;
 namespace TripTracker.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220430220047_Photos")]
+    partial class Photos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,7 +68,7 @@ namespace TripTracker.Migrations
 
                     b.HasIndex("TripId");
 
-                    b.ToTable("Photos");
+                    b.ToTable("TripPhotos");
                 });
 
             modelBuilder.Entity("TripTracker.Models.Trip", b =>
@@ -143,7 +145,7 @@ namespace TripTracker.Migrations
             modelBuilder.Entity("TripTracker.Models.Photo", b =>
                 {
                     b.HasOne("TripTracker.Models.Trip", "Trip")
-                        .WithMany("Photos")
+                        .WithMany("TripPhotos")
                         .HasForeignKey("TripId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -155,7 +157,7 @@ namespace TripTracker.Migrations
                 {
                     b.Navigation("Attendees");
 
-                    b.Navigation("Photos");
+                    b.Navigation("TripPhotos");
                 });
 #pragma warning restore 612, 618
         }

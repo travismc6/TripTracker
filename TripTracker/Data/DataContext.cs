@@ -23,7 +23,7 @@ namespace TripTracker.Data
 
         public DbSet<Trip> Trips { get; set; }
         public DbSet<Attendee> Attendees { get; set; }
-        public DbSet<TripPhoto> TripPhotos { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
     }
 }

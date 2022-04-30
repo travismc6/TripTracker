@@ -13,6 +13,14 @@ export interface TripListItem {
     distanceMiles:number;
     timeMinutes:number;
     notes: string;
+    photos: Photo[];
+}
+
+export interface Photo {
+    id: number;
+    tripId: number;
+    url: string;
+    publicId: string;
 }
 
 export const getLatitude = (coordinates: string) => {
