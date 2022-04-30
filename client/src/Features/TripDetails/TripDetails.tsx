@@ -1,61 +1,49 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { apiRoot } from "../../App/Helpers/Helpers";
+import { Box } from "@mui/material";
+import { LoadScript, GoogleMap, useLoadScript } from "@react-google-maps/api";
+import { SetStateAction, useState } from "react";
+import { googleMapsApiKey } from "../../App/Helpers/Credentials";
 import { getTimeString, TripListItem } from "../../App/Models/Trip";
 
-// interface Props {
-//   existingTrip: TripListItem | null;
-// }
+interface Props {
+  trip: TripListItem;
+}
 
-export default function TripDetails() {
-  const { id } = useParams<{ id: string }>();
-  const [trip, setTrip] = useState<TripListItem>();
-  const [isLoading, setIsLoading] = useState(false);
+const mapStyles = {
+  height: "80vh",
+  width: "100%",
+};
 
-  useEffect(() => {
-    axios
-      .get<TripListItem>(apiRoot + `/api/trips/${id}`)
-      .then((resp) => {
-        // set trip state
-        setTrip(resp.data);
-        setIsLoading(true);
-      })
-      .catch((error) => console.log(error))
-      .finally(() => setIsLoading(false));
-  }, [id]);
+export default function TripDetails({ trip }: Props) {
+  const { isLoaded } = useLoadScript({
+    // Enter your own Google Maps API key
+    googleMapsApiKey: googleMapsApiKey,
+  });
+  const [mapRef, setMapRef] = useState(null);
 
-  if (isLoading) {
-    return <h3>Loading...</h3>;
-  } else if (!trip) {
-    return <h3>Trip not found!</h3>;
-  } else {
-    return (
-      <>
-        <div>
-          <h1>
-            {trip?.year} - {trip?.river}
-          </h1>
-          <h2>State: {trip?.state}</h2>
-          <h2>Distance: {trip?.distanceMiles} miles</h2>
-          <h2>Time: {getTimeString(trip.timeMinutes)}</h2>
-          <h2>Stage: {trip?.stage}</h2>
-          <h2>Flow: {trip?.flow}</h2>
-          <h2>Notes: {trip.notes}</h2>
-          <br />
-          <br />
-          <br />
-          <br />
-          <h2>Map</h2>
-          coming soon!!!
-          <h2>Photos</h2>
-          coming soon!
-          <h2>Highlights</h2>
-          coming soon!
-          <h2>Attendees</h2>
-          coming soon!
-        </div>
-      </>
-    );
-  }
+
+  const loadHandler = () => {
+    // Store a reference to the google map instance in state
+    //setMapRef(map);
+    // Fit map bounds to contain all markers
+  };
+
+  const [defaultCenter, setDefaultCenter] = useState<google.maps.LatLngLiteral>(
+    {
+      lat: 41.264665920371726,
+      lng: -84.38764950957754,
+    }
+  );
+
+  return (
+    <>
+
+      {isLoaded && (
+          <Box>
+          <GoogleMap zoom={5} mapContainerStyle={mapStyles}             center={defaultCenter}
+        onLoad={loadHandler}
+          ></GoogleMap>
+          </Box>
+        )}
+    </>
+  );
 }

@@ -16,16 +16,22 @@ export default function TripGrid({ tripList }: Props) {
       flex: 1,
       renderCell: (cellValues) => {
         let dateString = "";
-        if(cellValues.row.date){
+        if (cellValues.row.date) {
           var date = new Date(cellValues.row.date);
-          dateString += (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear()
-        } else {dateString = cellValues.row.year}
+          dateString +=
+            date.getMonth() +
+            1 +
+            "/" +
+            date.getDate() +
+            "/" +
+            date.getFullYear();
+        } else {
+          dateString = cellValues.row.year;
+        }
 
-        return (
-          dateString
-        );
+        return dateString;
       },
-    }, 
+    },
     {
       field: "river",
       headerName: "River",
@@ -97,7 +103,11 @@ export default function TripGrid({ tripList }: Props) {
   ];
   return (
     <>
-      <DataGrid rows={tripList} columns={columns} rowsPerPageOptions={[5]} />
+      <DataGrid
+        rows={tripList}
+        columns={columns}
+        rowsPerPageOptions={[5]}
+      />
     </>
   );
 }

@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { TripListItem } from "../../App/Models/Trip";
-import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import TripMap from "./TripMap";
 import TripGrid from "./TripGrid";
 import { apiRoot } from "../../App/Helpers/Helpers";
 
-export default function TripList() {
+export default function TripListContainer() {
   const [tripList, setTripList] = useState<TripListItem[]>([]);
   const [view, setView] = useState<string>("list");
   const [isLoading, setIsLoading] = useState(false);
@@ -54,10 +54,8 @@ export default function TripList() {
     <>
       {isLoading && <h3>loading...</h3>}
       {!isLoading && filteredList.length > 0 && (
-        <div style={{ height: 800, width: "100%" }}>
-          <div>
+        <Box height="100vh" >
             <h3>
-              Trips: {filteredList.length}
               {"\t\t"}Total Miles:{" "}
               {Math.round(
                 filteredList
@@ -67,7 +65,6 @@ export default function TripList() {
                   })
               )}
             </h3>
-          </div>
           <Button variant="contained" href="/create">
             Add Trip
           </Button>
@@ -107,7 +104,7 @@ export default function TripList() {
 
           {view === "list" && <TripGrid tripList={filteredList} />}
           {view === "map" && <TripMap tripList={filteredList} />}
-        </div>
+        </Box>
       )}
     </>
   );

@@ -1,19 +1,19 @@
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
 import {
   GoogleMap,
   InfoWindow,
   LoadScript,
   Marker,
+  useLoadScript,
 } from "@react-google-maps/api";
+import React from "react";
 import { useEffect, useRef, useState } from "react";
-import { getLatitude, getLongitude, getTimeString, TripListItem } from "../../App/Models/Trip";
+import { googleMapsApiKey } from "../../App/Helpers/Credentials";
+import {
+  getLatitude,
+  getLongitude,
+  getTimeString,
+  TripListItem,
+} from "../../App/Models/Trip";
 
 interface Props {
   tripList: readonly TripListItem[];
@@ -28,7 +28,7 @@ export default function TripMap({ tripList }: Props) {
   const [infoOpen, setInfoOpen] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState<TripListItem | null>(null);
   const [markerMap, setMarkerMap] = useState<google.maps.Marker[]>([]);
-  
+
   // https://codesandbox.io/s/react-google-maps-api-ir5ks?from-embed=&file=/src/index.js:333-379
 
   const [defaultCenter, setDefaultCenter] = useState<google.maps.LatLngLiteral>(
@@ -65,13 +65,36 @@ export default function TripMap({ tripList }: Props) {
     }
 
     setSelectedTrip(trip);
-
     setInfoOpen(true);
   };
 
+  // const renderMap = () => {
+  //   // wrapping to a function is useful in case you want to access `window.google`
+  //   // to eg. setup options or create latLng object, it won't be available otherwise
+  //   // feel free to render directly if you don't need that
+  //   const onLoad = React.useCallback(
+  //     function onLoad (mapInstance) {
+  //       // do something with map Instance
+  //     }
+  //   )
+  //   return <GoogleMap
+  //     options={options}
+  //     onLoad={onLoad}
+  //   >
+  //     {
+  //       // ...Your map components
+  //     }
+  //   </GoogleMap>
+  // }
+
+  const { isLoaded } = useLoadScript({
+    // Enter your own Google Maps API key
+    googleMapsApiKey: googleMapsApiKey,
+  });
+
   return (
     <>
-      <LoadScript googleMapsApiKey="AIzaSyAsds9xmjZs7Esa8LLAv2KT851d9RSDdLo">
+      {isLoaded && (
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={5}
@@ -111,12 +134,12 @@ export default function TripMap({ tripList }: Props) {
                   {selectedTrip.year} - {selectedTrip.state}
                 </b>
                 <div>{getTimeString(selectedTrip.timeMinutes)}</div>
-                <a href= {`/tripDetails/${selectedTrip.id}`} >details</a>
+                <a href={`/tripDetails/${selectedTrip.id}`}>details</a>
               </div>
             </InfoWindow>
           )}
         </GoogleMap>
-      </LoadScript>
+      )}
     </>
   );
 }
