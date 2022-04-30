@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TripTracker;
 using TripTracker.Data;
 using TripTracker.Services;
 
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(connectionString));
 builder.Services.AddScoped(typeof(ITripService), typeof(TripService));
+
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 
 var app = builder.Build();
@@ -35,7 +38,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-
 
 app.Run();

@@ -1,8 +1,10 @@
-﻿using CsvHelper;
+﻿using AutoMapper;
+using CsvHelper;
 using CsvHelper.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using TripTracker.Data;
+using TripTracker.Dtos;
 using TripTracker.Models;
 
 namespace TripTracker.Services
@@ -10,9 +12,21 @@ namespace TripTracker.Services
     public class TripService : ITripService
     {
         private readonly DataContext _context;
-        public TripService(DataContext context)
+        private readonly IMapper _mapper;
+
+        public TripService(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+        }
+
+        public async Task<Trip> CreateTrip(CreateTripDto dto)
+        {
+            var trip = _mapper.Map<Trip>(dto);
+            await _context.Trips.AddAsync(trip);
+            await _context.SaveChangesAsync();
+
+            return trip;
         }
 
         public async Task<Trip> GetTripById(int id)

@@ -1,4 +1,5 @@
-﻿using TripTracker.Models;
+﻿using TripTracker.Dtos;
+using TripTracker.Models;
 
 namespace TripTracker.Services
 {
@@ -7,5 +8,6 @@ namespace TripTracker.Services
         Task<List<Trip>> Import(IFormFile file);
         Task<List<Trip>> GetTrips();
         Task<Trip> GetTripById(int id);
+        Task<Trip> CreateTrip(CreateTripDto dto);
     }
 }

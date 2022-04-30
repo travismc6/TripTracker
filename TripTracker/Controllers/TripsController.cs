@@ -3,6 +3,7 @@ using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using TripTracker.Dtos;
 using TripTracker.Models;
 using TripTracker.Services;
 
@@ -19,6 +20,7 @@ namespace TripTracker.Controllers
         }
 
         [HttpPost]
+        [Route("/import")]
         public async Task<IActionResult> ImportTrips(IFormFile file)
         {
             var trips = await _tripService.Import(file);
@@ -46,6 +48,20 @@ namespace TripTracker.Controllers
             try
             {
                 var trip = await _tripService.GetTripById(id);
+                return Ok(trip);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTrip([FromForm]CreateTripDto createTrip)
+        {
+            try
+            {
+                var trip = await _tripService.CreateTrip(createTrip);
                 return Ok(trip);
             }
             catch (Exception ex)

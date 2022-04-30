@@ -1,4 +1,4 @@
-﻿namespace TripTracker.Models
+﻿namespace TripTracker.Dtos
 {
     public class TripImportDto
     {
