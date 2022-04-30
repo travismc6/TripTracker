@@ -5,6 +5,7 @@
 /.vs/TripTracker
 bin
 obj
+**/Credentials.ts
 .vscode
 .DS_Store
 *.db
@@ -14,4 +15,4 @@ node_modules
 */obj/*
 obj/
 /obj/Debug/*
-**/Credentials
+
