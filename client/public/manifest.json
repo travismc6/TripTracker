@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Kayak Trip Tracker",
+  "name": "Kayak Trip Tracker by Travis",
   "icons": [
     {
       "src": "favicon.ico",

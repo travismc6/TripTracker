@@ -3,6 +3,7 @@ export interface TripListItem {
     river: string;
     state: string;
     year: number;
+    date: Date | null;
     stage: string;
     flow:string;
     startName: string;
@@ -11,6 +12,7 @@ export interface TripListItem {
     startCoordinates:string;
     distanceMiles:number;
     timeMinutes:number;
+    notes:number;
 }
 
 export const getLatitude = (coordinates: string) => {

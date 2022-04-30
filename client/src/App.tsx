@@ -6,6 +6,7 @@ import Header from './Features/Header';
 import { Container, CssBaseline } from '@mui/material';
 import { Route, Routes } from 'react-router';
 import TripDetails from './Features/TripDetails/TripDetails';
+import CreateTrip from './Features/Create/CreateTrip';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Container>
         <Routes>
           <Route path='/' element={<TripList />} />
+          <Route path='/create' element={<CreateTrip />} />
           <Route path='/tripDetails/:id' element={<TripDetails  />} />
         </Routes>
       </Container>

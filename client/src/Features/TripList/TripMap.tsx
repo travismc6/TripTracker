@@ -13,7 +13,7 @@ import {
   Marker,
 } from "@react-google-maps/api";
 import { useEffect, useRef, useState } from "react";
-import { getLatitude, getLongitude, getTimeString, TripListItem } from "../Models/Trip";
+import { getLatitude, getLongitude, getTimeString, TripListItem } from "../../App/Models/Trip";
 
 interface Props {
   tripList: readonly TripListItem[];
@@ -28,16 +28,8 @@ export default function TripMap({ tripList }: Props) {
   const [infoOpen, setInfoOpen] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState<TripListItem | null>(null);
   const [markerMap, setMarkerMap] = useState<google.maps.Marker[]>([]);
-  const [yearSelected, setYearSelected] = useState<string>("All");
-
+  
   // https://codesandbox.io/s/react-google-maps-api-ir5ks?from-embed=&file=/src/index.js:333-379
-
-  const [filteredList, setFilteredList] = useState<TripListItem[]>([
-    ...tripList,
-  ]);
-
-  // filters
-  const [yearOptions, setYearOptions] = useState<number[]>([]);
 
   const [defaultCenter, setDefaultCenter] = useState<google.maps.LatLngLiteral>(
     {
@@ -53,13 +45,6 @@ export default function TripMap({ tripList }: Props) {
         lng: getLongitude(tripList[0].startCoordinates),
       });
     }
-
-    const allYears = tripList.map((item) => item.year);
-    let yearSet = new Set<number>();
-    allYears.forEach((y) => {
-      yearSet.add(y);
-    });
-    setYearOptions(Array.from(yearSet.values()).sort());
   }, []);
 
   const markerLoadHandler = (
@@ -84,56 +69,15 @@ export default function TripMap({ tripList }: Props) {
     setInfoOpen(true);
   };
 
-  const yearChangeHandler = (event: SelectChangeEvent) => {
-    const year = event.target.value;
-    setYearSelected(year);
-
-    if (year !== "All") {
-      let list = [...tripList.filter((t) => t.year === +year)];
-      setFilteredList([...list]);
-    } else {
-      setFilteredList([...tripList]);
-    }
-  };
-
   return (
     <>
-      <div>
-        <FormControl sx={{ m: 1, minWidth: 80 }}>
-          <InputLabel id="demo-simple-select-label">Year</InputLabel>
-          <Select
-            value={yearSelected}
-            label="Year"
-            onChange={yearChangeHandler}
-          >
-            <MenuItem value="All">
-              <em>All</em>
-            </MenuItem>
-            {yearOptions.map((year) => (
-              <MenuItem value={year}>{year}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-
-        <h3>
-          Trips: {filteredList.length}{"\t\t"}Total Miles:{" "}
-          {Math.round(
-            filteredList
-              .map((a) => a.distanceMiles)
-              .reduce(function (a, b) {
-                return a + b;
-              })
-          )}
-        </h3>
-      </div>
-
       <LoadScript googleMapsApiKey="AIzaSyAsds9xmjZs7Esa8LLAv2KT851d9RSDdLo">
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={5}
           center={defaultCenter}
         >
-          {filteredList.map((trip) => (
+          {tripList.map((trip) => (
             <Marker
               onLoad={(marker) => markerLoadHandler(marker, trip)}
               onClick={(event) => markerClickHandler(event, trip)}

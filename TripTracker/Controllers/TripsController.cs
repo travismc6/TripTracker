@@ -39,5 +39,19 @@ namespace TripTracker.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTripById(int id)
+        {
+            try
+            {
+                var trip = await _tripService.GetTripById(id);
+                return Ok(trip);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

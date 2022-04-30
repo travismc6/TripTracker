@@ -6,5 +6,6 @@ namespace TripTracker.Services
     {
         Task<List<Trip>> Import(IFormFile file);
         Task<List<Trip>> GetTrips();
+        Task<Trip> GetTripById(int id);
     }
 }

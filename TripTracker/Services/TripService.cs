@@ -15,6 +15,12 @@ namespace TripTracker.Services
             _context = context;
         }
 
+        public async Task<Trip> GetTripById(int id)
+        {
+            var trips = _context.Trips.Where(r=> r.Id == id).AsQueryable();
+            return await trips.FirstAsync();
+        }
+
         public async Task<List<Trip>> GetTrips()
         {
             var trips =  _context.Trips.AsQueryable();
