@@ -1,51 +1,40 @@
-import {
-  Box,
-  Button,
-  Divider,
-  ImageList,
-  ImageListItem,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import {
-  LoadScript,
-  GoogleMap,
-  useLoadScript,
-  Marker,
-} from "@react-google-maps/api";
-import { SetStateAction, useState } from "react";
-import { googleMapsApiKey } from "../../App/Helpers/Credentials";
-import { FlagEnd, FlagStart } from "../../App/Helpers/SvgIcons";
-import {
-  getDateString,
-  getLatitude,
-  getLongitude,
-  getTimeString,
-  Photo,
-  TripListItem,
-} from "../../App/Models/Trip";
+import { ImageList, ImageListItem } from "@mui/material";
+import axios from "axios";
+import { useState } from "react";
+import AppDropzone from "../../App/Components/AppDropzone";
+import { apiRoot } from "../../App/Helpers/Helpers";
+import { Photo, TripListItem } from "../../App/Models/Trip";
 
 interface Props {
   trip: TripListItem;
 }
 
-function handleImportClick(){
-    
-}
-
 export default function TripPhotos({ trip }: Props) {
+  const [isUploading, setIsUploading] = useState(false);
+  const [photos, setPhotos] = useState<Photo[]>([...trip.photos]);
+
+  function handleImport(file: File) {
+    var formData = new FormData();
+    formData.append("uploadFile", file);
+
+    // TODO: figure out why axios isn't working
+    fetch(apiRoot + `/api/trips/image/${trip.id}`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const photo = data as Photo;
+        let tripPhotos = [...photos];
+        tripPhotos.push(photo);
+        setPhotos([...tripPhotos]);
+      });
+
+  }
   return (
     <>
-      <Button variant="contained" onClick={handleImportClick}>
-        Import
-      </Button>
       <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-        {trip.photos.map((item: Photo) => (
+        {photos.map((item: Photo) => (
           <ImageListItem key={item.url}>
             <img
               onClick={() => {
@@ -56,7 +45,8 @@ export default function TripPhotos({ trip }: Props) {
             />
           </ImageListItem>
         ))}
-      </ImageList>{" "}
+      </ImageList>
+      <AppDropzone onImport={handleImport} />
     </>
   );
 }

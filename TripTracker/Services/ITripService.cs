@@ -9,5 +9,6 @@ namespace TripTracker.Services
         Task<List<Trip>> GetTrips();
         Task<Trip> GetTripById(int id);
         Task<Trip> CreateTrip(CreateTripDto dto);
+        Task<Photo> UploadTripPhoto(int id, string publicId, string url);
     }
 }

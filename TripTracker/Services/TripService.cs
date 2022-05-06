@@ -162,5 +162,22 @@ namespace TripTracker.Services
             }
 
         }
+
+        public async Task<Photo> UploadTripPhoto(int id, string publicId, string url)
+        {
+            var trip = await GetTripById(id);
+
+            if(trip == null)
+            {
+                return null;
+            }
+
+            var photo = new Photo() { TripId = id, Url = url, PublicId = publicId };
+
+            trip.Photos.Add(photo);
+            await _context.SaveChangesAsync();
+
+            return photo;
+        }
     }
 }

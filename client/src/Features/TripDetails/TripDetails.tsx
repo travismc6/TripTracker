@@ -92,19 +92,19 @@ export default function TripDetails({ trip }: Props) {
               <TableCell>
                 <b>Flow</b>
               </TableCell>
-              <TableCell>{trip.flow} miles</TableCell>
+              <TableCell>{trip.flow}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
                 <b>Start</b>
               </TableCell>
-              <TableCell>{trip.startName} miles</TableCell>
+              <TableCell>{trip.startName}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
                 <b>End</b>
               </TableCell>
-              <TableCell>{trip.endName} miles</TableCell>
+              <TableCell>{trip.endName}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

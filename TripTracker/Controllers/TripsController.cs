@@ -14,9 +14,12 @@ namespace TripTracker.Controllers
     public class TripsController : ControllerBase
     {
         private readonly ITripService _tripService;
-        public TripsController(ITripService tripService)
+        private readonly ImageService _imageService;
+
+        public TripsController(ITripService tripService, ImageService imageService)
         {
             _tripService = tripService;
+            _imageService = imageService;
         }
 
         [HttpPost]
@@ -68,6 +71,17 @@ namespace TripTracker.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        // TODO: figure out why api/trips is not appending
+        [HttpPost("image/{tripId}")]
+        public async Task<IActionResult> UploadImage([FromForm] PhotoUploadFile file, int tripId)
+        {
+            var imageResult = await _imageService.AddImageAsync(file.UploadFile);
+
+            var result = await _tripService.UploadTripPhoto(tripId, imageResult.PublicId, imageResult.SecureUrl.ToString());
+
+            return Ok(result);
         }
     }
 }
