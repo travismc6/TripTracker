@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import TripsContainer from './Features/TripList/TripListContainer';
 import Header from './Features/Header';
-import { Container, CssBaseline } from '@mui/material';
+import { Box, Container, CssBaseline } from '@mui/material';
 import { Route, Routes } from 'react-router';
 import TripDetails from './Features/TripDetails/TripDetailsContainer';
 import CreateTrip from './Features/Create/CreateTrip';
@@ -16,13 +16,13 @@ function App() {
     <>
       <CssBaseline/>
       <Header/>
-      <Container>
+      <Box sx={{mr:10, ml:10}}>
         <Routes>
           <Route path='/' element={<TripListContainer />} />
           <Route path='/create' element={<CreateTrip />} />
           <Route path='/tripDetails/:id' element={<TripDetailsContainer  />} />
         </Routes>
-      </Container>
+      </Box>
     </>
   );
 }

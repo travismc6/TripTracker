@@ -1,7 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { TripListItem } from "../../App/Models/Trip";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
 import TripMap from "./TripMap";
 import TripGrid from "./TripGrid";
 import { apiRoot } from "../../App/Helpers/Helpers";
@@ -12,8 +23,8 @@ export default function TripListContainer() {
   const [isLoading, setIsLoading] = useState(false);
   const [yearSelected, setYearSelected] = useState<string>("All");
 
-    // filters
-    const [yearOptions, setYearOptions] = useState<number[]>([]);
+  // filters
+  const [yearOptions, setYearOptions] = useState<number[]>([]);
 
   const [filteredList, setFilteredList] = useState<TripListItem[]>([
     ...tripList,
@@ -44,7 +55,7 @@ export default function TripListContainer() {
         allYears.forEach((y) => {
           yearSet.add(y);
         });
-        setYearOptions(Array.from(yearSet.values()).sort());
+        setYearOptions(Array.from(yearSet.values()).sort().reverse());
       })
       .catch((error) => console.log(error))
       .finally(() => setIsLoading(false));
@@ -54,8 +65,9 @@ export default function TripListContainer() {
     <>
       {isLoading && <h3>loading...</h3>}
       {!isLoading && filteredList.length > 0 && (
-        <Box height="100vh" >
-            <h3>
+        <Box>
+          <Box>
+            <Typography variant="h5" sx={{mt:2}}>
               {"\t\t"}Total Miles:{" "}
               {Math.round(
                 filteredList
@@ -64,29 +76,36 @@ export default function TripListContainer() {
                     return a + b;
                   })
               )}
-            </h3>
-          <Button variant="contained" href="/create">
-            Add Trip
-          </Button>
+            </Typography>
+            <Button variant="contained" href="/create">
+              Add Trip
+            </Button>
 
-          <ToggleButtonGroup
-            sx={{ marginLeft: 5, marginTop: 2, marginBottom: 2 }}
-            color="primary"
-            value={view}
-            exclusive
-            onChange={() => {
-              if (view === "list") {
-                setView("map");
-              } else {
-                setView("list");
-              }
-            }}
-          >
-            <ToggleButton value="list">List</ToggleButton>
-            <ToggleButton value="map">Map</ToggleButton>
-          </ToggleButtonGroup>
+            <ToggleButtonGroup
+              sx={{ marginLeft: 5, marginTop: 2, marginBottom: 2 }}
+              color="primary"
+              value={view}
+              exclusive
+              onChange={() => {
+                if (view === "list") {
+                  setView("map");
+                } else {
+                  setView("list");
+                }
+              }}
+            >
+              <ToggleButton value="list">List</ToggleButton>
+              <ToggleButton value="map">Map</ToggleButton>
+            </ToggleButtonGroup>
 
-          <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <FormControl
+              sx={{
+                marginLeft: 5,
+                marginTop: 1,
+                marginBottom: 2,
+                minWidth: 80,
+              }}
+            >
               <InputLabel id="demo-simple-select-label">Year</InputLabel>
               <Select
                 value={yearSelected}
@@ -101,9 +120,12 @@ export default function TripListContainer() {
                 ))}
               </Select>
             </FormControl>
+          </Box>
 
-          {view === "list" && <TripGrid tripList={filteredList} />}
-          {view === "map" && <TripMap tripList={filteredList} />}
+          <Box style={{ height: "75vh", overflow: "auto" }}>
+            {view === "list" && <TripGrid tripList={filteredList} />}
+            {view === "map" && <TripMap tripList={filteredList} />}
+          </Box>
         </Box>
       )}
     </>

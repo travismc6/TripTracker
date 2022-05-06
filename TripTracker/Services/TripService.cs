@@ -37,7 +37,7 @@ namespace TripTracker.Services
 
         public async Task<List<Trip>> GetTrips()
         {
-            var trips =  _context.Trips.AsQueryable();
+            var trips =  _context.Trips.OrderByDescending(t => t.Year).ThenByDescending(r => r.Date).AsQueryable();
             return await trips.ToListAsync();
         }
 
