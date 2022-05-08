@@ -60,7 +60,7 @@ namespace TripTracker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTrip([FromForm]CreateTripDto createTrip)
+        public async Task<IActionResult> CreateTrip(CreateTripDto createTrip)
         {
             try
             {

@@ -5,8 +5,7 @@
         public int Id { get; set; }
         public string River { get; set; }
         public string State { get; set; }
-        public int Year { get; set; }
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
         public string Stage { get; set; }
         public double? Flow { get; set; }
         public string StartName { get; set; }

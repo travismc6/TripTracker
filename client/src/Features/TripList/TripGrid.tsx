@@ -1,7 +1,7 @@
 import { Link } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
-import { getTimeString, TripListItem } from "../../App/Models/Trip";
+import { getDateString, getTimeString, TripListItem } from "../../App/Models/Trip";
 
 interface Props {
   tripList: readonly TripListItem[];
@@ -13,23 +13,9 @@ export default function TripGrid({ tripList }: Props) {
       field: "year",
       headerName: "Date",
       minWidth: 100,
-      flex: 1,
       renderCell: (cellValues) => {
-        let dateString = "";
-        if (cellValues.row.date) {
-          var date = new Date(cellValues.row.date);
-          dateString +=
-            date.getMonth() +
-            1 +
-            "/" +
-            date.getDate() +
-            "/" +
-            date.getFullYear();
-        } else {
-          dateString = cellValues.row.year;
-        }
 
-        return dateString;
+        return getDateString(cellValues.row.date);
       },
     },
     {
@@ -55,7 +41,7 @@ export default function TripGrid({ tripList }: Props) {
     {
       field: "timeMinutes",
       headerName: "Time",
-      flex: 1,
+      minWidth:100,
       renderCell: (params) => {
         return getTimeString(params.row.timeMinutes);
       },

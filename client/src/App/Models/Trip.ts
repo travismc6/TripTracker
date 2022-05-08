@@ -2,18 +2,35 @@ export interface TripListItem {
     id: number;
     river: string;
     state: string;
-    year: number;
-    date: Date | null;
+    date: Date;
     stage: string;
-    flow:string;
+    flow?:number;
     startName: string;
     endName: string;
     endCoordinates:string;
     startCoordinates:string;
     distanceMiles:number;
     timeMinutes:number;
+    measuredAt:string;
     notes: string;
     photos: Photo[];
+}
+
+export interface UploadTrip {
+    river: string;
+    state: string;
+    date: Date | undefined;
+    stage: string;
+    flow:number | undefined;
+    startName: string;
+    endName: string;
+    endCoordinates:string;
+    startCoordinates:string;
+    distanceMiles: number;
+    timeHours:number;
+    timeMinutes:number;
+    measuredAt: string;
+    notes: string;
 }
 
 export interface Photo {
@@ -52,10 +69,7 @@ export const getTimeString = (totalMinutes: number) => {
     return time;
 };
 
-export const getDateString = (date: Date | null, year: number) => {
-    if(date){
+export const getDateString = (date: Date) => {
         var d = new Date(date); // TODO figure out what date doesn't work
         return `${(d.getMonth() + 1)}/${d.getDate()}/${d.getFullYear()}`
-    }
-    return year;
 };

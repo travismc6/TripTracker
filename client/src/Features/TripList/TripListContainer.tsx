@@ -35,7 +35,7 @@ export default function TripListContainer() {
     setYearSelected(year);
 
     if (year !== "All") {
-      let list = [...tripList.filter((t) => t.year === +year)];
+      let list = [...tripList.filter((t) => t.date.getFullYear() === +year)];
       setFilteredList([...list]);
     } else {
       setFilteredList([...tripList]);
@@ -50,7 +50,7 @@ export default function TripListContainer() {
         setTripList(resp.data);
         setFilteredList(resp.data);
 
-        const allYears = resp.data.map((item) => item.year);
+        const allYears = resp.data.map((item) => item.date.getFullYear());
         let yearSet = new Set<number>();
         allYears.forEach((y) => {
           yearSet.add(y);

@@ -37,7 +37,7 @@ namespace TripTracker.Services
 
         public async Task<List<Trip>> GetTrips()
         {
-            var trips =  _context.Trips.OrderByDescending(t => t.Year).ThenByDescending(r => r.Date).AsQueryable();
+            var trips =  _context.Trips.OrderByDescending(t => t.Date).AsQueryable();
             return await trips.ToListAsync();
         }
 
@@ -84,12 +84,11 @@ namespace TripTracker.Services
 
                                 if (DateTime.TryParse(tripDto.DateString, out date))
                                 {
-                                    trip.Year = date.Year;
                                     trip.Date = date;
                                 }
                                 else if (Int32.TryParse(tripDto.DateString, out year))
                                 {
-                                    trip.Year = year;
+                                    trip.Date = new DateTime(year, 1, 1);
                                 }
                                 else if(!String.IsNullOrEmpty(tripDto.DateString))
                                 {
@@ -97,7 +96,7 @@ namespace TripTracker.Services
 
                                     if (Int32.TryParse(s.Last(), out year))
                                     {
-                                        trip.Year = year;
+                                        trip.Date = new DateTime(year, 1, 1);
                                     }
                                 }
 

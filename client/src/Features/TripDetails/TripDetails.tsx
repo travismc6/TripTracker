@@ -61,7 +61,7 @@ export default function TripDetails({ trip }: Props) {
         {trip.river}
       </Typography>
       <Typography variant="h5" color="darkblue">
-        {getDateString(trip.date, trip.year)}
+        {getDateString(trip.date)}
       </Typography>
       <Divider sx={{ mb: 2 }} />
 
@@ -105,6 +105,12 @@ export default function TripDetails({ trip }: Props) {
                 <b>End</b>
               </TableCell>
               <TableCell>{trip.endName}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <b>Measured At</b>
+              </TableCell>
+              <TableCell>{trip.measuredAt}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

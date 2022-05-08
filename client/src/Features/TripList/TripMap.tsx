@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { googleMapsApiKey } from "../../App/Helpers/Credentials";
 import { KayakIcon } from "../../App/Helpers/SvgIcons";
 import {
+  getDateString,
   getLatitude,
   getLongitude,
   getTimeString,
@@ -98,7 +99,7 @@ export default function TripMap({ tripList }: Props) {
                 strokeColor: "white",
                 strokeWeight: 0,
               }}
-              title={`${trip.year} - ${trip.river}`}
+              title={`${getDateString(trip.date)} - ${trip.river}`}
             />
           ))}
           {infoOpen && selectedTrip && (
@@ -112,7 +113,7 @@ export default function TripMap({ tripList }: Props) {
               <div>
                 <h3>{selectedTrip.river}</h3>
                 <b>
-                  {selectedTrip.year} - {selectedTrip.state}
+                  {getDateString(selectedTrip.date)} - {selectedTrip.state}
                 </b>
                 <div>{getTimeString(selectedTrip.timeMinutes)}</div>
                 <a href={`/tripDetails/${selectedTrip.id}`}>details</a>
