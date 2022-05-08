@@ -18,7 +18,7 @@ export default function TripGrid({ tripList, handleOpenModal }: Props) {
     {
       field: "date",
       headerName: "Date",
-      minWidth: 110,
+      minWidth: 120,
       renderCell: (cellValues) => {
         return getFullDateString(cellValues.row.date, cellValues.row.days);
       },

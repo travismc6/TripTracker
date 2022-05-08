@@ -71,30 +71,38 @@ export default function TripDetails({ trip }: Props) {
       <TableContainer>
         <Table>
           <TableBody>
-            <TableRow>
-              <TableCell>
-                <b>Distance</b>
-              </TableCell>
-              <TableCell>{trip.distanceMiles} miles</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <b>Time</b>
-              </TableCell>
-              <TableCell>{getTimeString(trip.timeMinutes)}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <b>Stage</b>
-              </TableCell>
-              <TableCell>{trip.stage}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <b>Flow</b>
-              </TableCell>
-              <TableCell>{trip.flow}</TableCell>
-            </TableRow>
+            {trip.distanceMiles && (
+              <TableRow>
+                <TableCell>
+                  <b>Distance</b>
+                </TableCell>
+                <TableCell>{trip.distanceMiles} miles</TableCell>
+              </TableRow>
+            )}
+            {trip.timeMinutes > 0 && (
+              <TableRow>
+                <TableCell>
+                  <b>Time</b>
+                </TableCell>
+                <TableCell>{getTimeString(trip.timeMinutes)}</TableCell>
+              </TableRow>
+            )}
+            {trip.timeMinutes > 0 && (
+              <TableRow>
+                <TableCell>
+                  <b>Stage</b>
+                </TableCell>
+                <TableCell>{trip.stage}</TableCell>
+              </TableRow>
+            )}
+            {trip.flow && (
+              <TableRow>
+                <TableCell>
+                  <b>Flow</b>
+                </TableCell>
+                <TableCell>{trip.flow}</TableCell>
+              </TableRow>
+            )}
             <TableRow>
               <TableCell>
                 <b>Start</b>
@@ -107,12 +115,14 @@ export default function TripDetails({ trip }: Props) {
               </TableCell>
               <TableCell>{trip.endName}</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>
-                <b>Measured At</b>
-              </TableCell>
-              <TableCell>{trip.measuredAt}</TableCell>
-            </TableRow>
+            {trip.measuredAt && (
+              <TableRow>
+                <TableCell>
+                  <b>Measured At</b>
+                </TableCell>
+                <TableCell>{trip.measuredAt}</TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>
@@ -160,7 +170,7 @@ export default function TripDetails({ trip }: Props) {
                 fillColor: "black",
                 fillOpacity: 1,
               }}
-              title={`End: ${trip.endCoordinates}`}
+              title={`End: ${trip.endName}`}
             />
           </GoogleMap>
         </Box>

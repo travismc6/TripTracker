@@ -298,7 +298,7 @@ export default function CreateTrip() {
     notes: "",
     timeMinutes: 0,
     measuredAt: "",
-    days: 1
+    days: 1,
   });
 
   const [isUploading, setIsUploading] = useState(false);
@@ -341,7 +341,8 @@ export default function CreateTrip() {
     setErrorMessage("");
     setIsUploading(true);
 
-    trip.timeMinutes = trip.timeHours * 60 + trip.timeMinutes;
+    const addMinutes = trip.timeHours * 60;
+    trip.timeMinutes += addMinutes;
 
     axios
       .post<TripListItem>(apiRoot + `/api/trips`, trip)

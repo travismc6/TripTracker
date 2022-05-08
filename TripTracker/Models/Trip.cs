@@ -19,5 +19,6 @@
         public int? Days { get; set; }
         public List<Photo> Photos { get; set; }
         public List<Attendee> Attendees { get; set; }
+        public List<Highlight> Highlights { get; set; }
     }
 }
