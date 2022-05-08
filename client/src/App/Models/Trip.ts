@@ -14,6 +14,7 @@ export interface TripListItem {
     measuredAt:string;
     notes: string;
     photos: Photo[];
+    days?: number;
 }
 
 export interface UploadTrip {
@@ -31,6 +32,7 @@ export interface UploadTrip {
     timeMinutes:number;
     measuredAt: string;
     notes: string;
+    days: number;
 }
 
 export interface Photo {
@@ -73,3 +75,15 @@ export const getDateString = (date: Date) => {
         var d = new Date(date); // TODO figure out what date doesn't work
         return `${(d.getMonth() + 1)}/${d.getDate()}/${d.getFullYear()}`
 };
+
+
+export const getFullDateString = (date: Date, days: number | undefined) => {
+    var startDate = new Date(date); // TODO figure out what date doesn't work
+    if (days && days > 1) {
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + (days - 1));
+      return `${startDate.getMonth() + 1}/${startDate.getDate()} - ${endDate.getMonth() + 1}/${endDate.getDate()}/${endDate.getFullYear()}`;
+    } else {
+      return `${startDate.getMonth() + 1}/${startDate.getDate()}/${startDate.getFullYear()}`;
+    }
+  };

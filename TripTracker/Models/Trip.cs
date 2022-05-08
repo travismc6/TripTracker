@@ -16,6 +16,7 @@
         public double DistanceMiles { get; set; }
         public string? MeasuredAt { get; set; }
         public string? Notes { get; set; }
+        public int? Days { get; set; }
         public List<Photo> Photos { get; set; }
         public List<Attendee> Attendees { get; set; }
     }

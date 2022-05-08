@@ -3,6 +3,7 @@ import { Box, IconButton, Link, Modal, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import {
   getDateString,
+  getFullDateString,
   getTimeString,
   TripListItem,
 } from "../../App/Models/Trip";
@@ -12,14 +13,14 @@ interface Props {
   handleOpenModal: (id: number) => void;
 }
 
-export default function TripGrid({ tripList, handleOpenModal }: Props) {  
+export default function TripGrid({ tripList, handleOpenModal }: Props) {
   const columns: GridColDef[] = [
     {
-      field: "year",
+      field: "date",
       headerName: "Date",
-      minWidth: 100,
+      minWidth: 110,
       renderCell: (cellValues) => {
-        return getDateString(cellValues.row.date);
+        return getFullDateString(cellValues.row.date, cellValues.row.days);
       },
     },
     {
@@ -28,7 +29,6 @@ export default function TripGrid({ tripList, handleOpenModal }: Props) {
       minWidth: 100,
       flex: 1,
       renderCell: (cellValues) => {
-
         return (
           <Link href={"/tripDetails/" + cellValues.row.id}>
             {cellValues.row.river}
@@ -37,6 +37,13 @@ export default function TripGrid({ tripList, handleOpenModal }: Props) {
       },
     },
     { field: "state", headerName: "State", minWidth: 100 },
+    // {
+    //   field: "days",
+    //   headerName: "Days",
+    //   renderCell: (params) => {
+    //     return params.row.days ?? "1";
+    //   },
+    // },
     { field: "distanceMiles", headerName: "Distance (mi)" },
     {
       field: "timeMinutes",
@@ -93,7 +100,11 @@ export default function TripGrid({ tripList, handleOpenModal }: Props) {
       cellClassName: "actions",
       renderCell: (cellValues) => {
         return (
-          <IconButton onClick={ () => {handleOpenModal(cellValues.row.id) } } >
+          <IconButton
+            onClick={() => {
+              handleOpenModal(cellValues.row.id);
+            }}
+          >
             <Delete />
           </IconButton>
         );

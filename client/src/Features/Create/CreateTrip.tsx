@@ -298,6 +298,7 @@ export default function CreateTrip() {
     notes: "",
     timeMinutes: 0,
     measuredAt: "",
+    days: 1
   });
 
   const [isUploading, setIsUploading] = useState(false);
@@ -310,6 +311,10 @@ export default function CreateTrip() {
     }
     if (trip.date === undefined) {
       setErrorMessage("Date is required");
+      return;
+    }
+    if (trip.days < 1) {
+      setErrorMessage("Days is invalid");
       return;
     }
     if (trip.state.length === 0) {
@@ -336,7 +341,7 @@ export default function CreateTrip() {
     setErrorMessage("");
     setIsUploading(true);
 
-    trip.timeMinutes = (trip.timeHours * 60) + trip.timeMinutes;
+    trip.timeMinutes = trip.timeHours * 60 + trip.timeMinutes;
 
     axios
       .post<TripListItem>(apiRoot + `/api/trips`, trip)
@@ -384,6 +389,15 @@ export default function CreateTrip() {
           type="date"
           onChange={handleInputChange}
           value={trip.date}
+        />
+        <TextField
+          label="Days"
+          name="days"
+          variant="outlined"
+          required
+          value={trip.days}
+          onChange={handleInputChange}
+          type="number"
         />
 
         <FormControl>

@@ -17,6 +17,7 @@ import {
 import TripMap from "./TripMap";
 import TripGrid from "./TripGrid";
 import { apiRoot } from "../../App/Helpers/Helpers";
+import { Add } from "@mui/icons-material";
 
 const modalStyle = {
   position: 'absolute' as 'absolute',
@@ -51,7 +52,7 @@ export default function TripListContainer() {
     setYearSelected(year);
 
     if (year !== "All") {
-      let list = [...tripList.filter((t) => t.date.getFullYear() === +year)];
+      let list = [...tripList.filter((t) => new Date(t.date).getFullYear() === +year)]; // TODO: why isn't date working?
       setFilteredList([...list]);
     } else {
       setFilteredList([...tripList]);
@@ -97,7 +98,11 @@ export default function TripListContainer() {
         setTripList(resp.data);
         setFilteredList(resp.data);
 
-        const allYears = resp.data.map((item) => item.date.getFullYear());
+        const allYears = resp.data.map((item) => { 
+          // TODO: why isn't date working?
+          var startDate = new Date(item.date); 
+          return startDate.getFullYear()
+        });
         let yearSet = new Set<number>();
         allYears.forEach((y) => {
           yearSet.add(y);
@@ -124,7 +129,7 @@ export default function TripListContainer() {
                   })
               )}
             </Typography>
-            <Button variant="contained" href="/create">
+            <Button variant="contained" href="/create" endIcon={<Add />} >
               Add Trip
             </Button>
 

@@ -15,11 +15,12 @@ import {
   useLoadScript,
   Marker,
 } from "@react-google-maps/api";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { googleMapsApiKey } from "../../App/Helpers/Credentials";
 import { FlagEnd, FlagStart } from "../../App/Helpers/SvgIcons";
 import {
   getDateString,
+  getFullDateString,
   getLatitude,
   getLongitude,
   getTimeString,
@@ -61,7 +62,7 @@ export default function TripDetails({ trip }: Props) {
         {trip.river}
       </Typography>
       <Typography variant="h5" color="darkblue">
-        {getDateString(trip.date)}
+        {getFullDateString(trip.date, trip.days)}
       </Typography>
       <Divider sx={{ mb: 2 }} />
 

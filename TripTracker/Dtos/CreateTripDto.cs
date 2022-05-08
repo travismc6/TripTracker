@@ -15,5 +15,6 @@
         public double DistanceMiles { get; set; }
         public string? MeasuredAt { get; set; }
         public string? Notes { get; set; }
+        public int? Days { get; set; }
     }
 }
