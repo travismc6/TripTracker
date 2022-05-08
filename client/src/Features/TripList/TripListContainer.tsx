@@ -7,6 +7,7 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  Modal,
   Select,
   SelectChangeEvent,
   ToggleButton,
@@ -17,7 +18,22 @@ import TripMap from "./TripMap";
 import TripGrid from "./TripGrid";
 import { apiRoot } from "../../App/Helpers/Helpers";
 
+const modalStyle = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
 export default function TripListContainer() {
+  const [openModal, setOpenModal] = useState(false);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [tripList, setTripList] = useState<TripListItem[]>([]);
   const [view, setView] = useState<string>("list");
   const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +56,37 @@ export default function TripListContainer() {
     } else {
       setFilteredList([...tripList]);
     }
+  };
+
+  const handleOpenModal = (id: number) => {
+    setOpenModal(true);
+    setDeletingId(id);
+  }
+
+  const handleCloseModal = () => {
+    if(!isDeleting){
+      setOpenModal(false);
+    }
+  }
+
+  const deleteTrip = () => {
+    setIsDeleting(true);
+
+     axios
+      .put(apiRoot + `/api/trips/delete/${deletingId}`)
+      .then((resp) => {
+        const modifiedTrips = [...tripList].filter((r) => r.id !== deletingId);
+        setTripList([...modifiedTrips]);
+
+        const modifiedFilteredTrips = [...filteredList].filter((r) => r.id !== deletingId);
+        setFilteredList([...modifiedFilteredTrips]);
+      })
+      .catch((error) => alert("Error deleting trip."))
+      .finally(() => {
+        setIsDeleting(false)
+        handleCloseModal();
+      });
+      setDeletingId(null);
   };
 
   useEffect(() => {
@@ -65,9 +112,9 @@ export default function TripListContainer() {
     <>
       {isLoading && <h3>loading...</h3>}
       {!isLoading && filteredList.length > 0 && (
-        <Box>
+        <>
           <Box>
-            <Typography variant="h5" sx={{mt:2}}>
+            <Typography variant="h5" sx={{ mt: 2 }}>
               {"\t\t"}Total Miles:{" "}
               {Math.round(
                 filteredList
@@ -123,10 +170,36 @@ export default function TripListContainer() {
           </Box>
 
           <Box style={{ height: "75vh", overflow: "auto" }}>
-            {view === "list" && <TripGrid tripList={filteredList} />}
+            {view === "list" && <TripGrid tripList={filteredList} handleOpenModal={handleOpenModal} />}
             {view === "map" && <TripMap tripList={filteredList} />}
           </Box>
-        </Box>
+
+          <Modal
+            open={openModal}
+            onClose={handleCloseModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={modalStyle}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Delete Trip
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Are you sure you want to delete this trip?
+              </Typography>
+
+              <Box display="flex" sx={{mt:2}}>
+                <Button disabled={isDeleting} variant="outlined" sx={{mr:2}} onClick={handleCloseModal}>
+                  Cancel
+                </Button>
+                <Button disabled={isDeleting} variant="contained" onClick={deleteTrip}>
+                  Delete
+                </Button>
+              </Box>
+
+            </Box>
+          </Modal>
+        </>
       )}
     </>
   );

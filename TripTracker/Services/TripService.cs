@@ -29,6 +29,15 @@ namespace TripTracker.Services
             return trip;
         }
 
+        public async Task<bool> DeleteTrip(int id)
+        {
+            var trip = _context.Trips.Where(r => r.Id == id).First();
+            _context.Trips.Remove(trip);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
         public async Task<Trip> GetTripById(int id)
         {
             var trips = _context.Trips.Where(r=> r.Id == id).Include(r => r.Photos).AsQueryable();

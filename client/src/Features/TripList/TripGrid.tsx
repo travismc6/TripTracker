@@ -1,20 +1,24 @@
-import { Link } from "@mui/material";
+import { Delete } from "@mui/icons-material";
+import { Box, IconButton, Link, Modal, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useState } from "react";
-import { getDateString, getTimeString, TripListItem } from "../../App/Models/Trip";
+import {
+  getDateString,
+  getTimeString,
+  TripListItem,
+} from "../../App/Models/Trip";
 
 interface Props {
   tripList: readonly TripListItem[];
+  handleOpenModal: (id: number) => void;
 }
 
-export default function TripGrid({ tripList }: Props) {
+export default function TripGrid({ tripList, handleOpenModal }: Props) {  
   const columns: GridColDef[] = [
     {
       field: "year",
       headerName: "Date",
       minWidth: 100,
       renderCell: (cellValues) => {
-
         return getDateString(cellValues.row.date);
       },
     },
@@ -24,10 +28,6 @@ export default function TripGrid({ tripList }: Props) {
       minWidth: 100,
       flex: 1,
       renderCell: (cellValues) => {
-        const startString: string = cellValues.row.startCoordinates.replace(
-          /\s/g,
-          ""
-        );
 
         return (
           <Link href={"/tripDetails/" + cellValues.row.id}>
@@ -41,13 +41,13 @@ export default function TripGrid({ tripList }: Props) {
     {
       field: "timeMinutes",
       headerName: "Time",
-      minWidth:100,
+      minWidth: 100,
       renderCell: (params) => {
         return getTimeString(params.row.timeMinutes);
       },
     },
     { field: "stage", headerName: "Stage" },
-    { field: "flow", headerName: "Flow" },
+    { field: "flow", headerName: "Flow (cfs)" },
     {
       field: "startName",
       headerName: "Start",
@@ -86,14 +86,23 @@ export default function TripGrid({ tripList }: Props) {
         );
       },
     },
+    {
+      field: "delete",
+      headerName: "",
+      minWidth: 100,
+      cellClassName: "actions",
+      renderCell: (cellValues) => {
+        return (
+          <IconButton onClick={ () => {handleOpenModal(cellValues.row.id) } } >
+            <Delete />
+          </IconButton>
+        );
+      },
+    },
   ];
   return (
     <>
-      <DataGrid
-        rows={tripList}
-        columns={columns}
-        rowsPerPageOptions={[5]}
-      />
+      <DataGrid rows={tripList} columns={columns} />
     </>
   );
 }

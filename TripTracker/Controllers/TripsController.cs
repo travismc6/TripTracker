@@ -73,6 +73,20 @@ namespace TripTracker.Controllers
             }
         }
 
+        [HttpPut("delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _tripService.DeleteTrip(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         // TODO: figure out why api/trips is not appending
         [HttpPost("image/{tripId}")]
         public async Task<IActionResult> UploadImage([FromForm] PhotoUploadFile file, int tripId)

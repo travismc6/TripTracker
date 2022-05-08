@@ -9,6 +9,7 @@ namespace TripTracker.Services
         Task<List<Trip>> GetTrips();
         Task<Trip> GetTripById(int id);
         Task<Trip> CreateTrip(CreateTripDto dto);
+        Task<bool> DeleteTrip(int id);
         Task<Photo> UploadTripPhoto(int id, string publicId, string url);
     }
 }
