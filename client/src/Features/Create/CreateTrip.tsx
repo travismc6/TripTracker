@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Container,
   FormControl,
@@ -298,7 +299,7 @@ export default function CreateTrip() {
     notes: "",
     timeMinutes: 0,
     measuredAt: "",
-    days: 1,
+    days: 1
   });
 
   const [isUploading, setIsUploading] = useState(false);
@@ -341,8 +342,7 @@ export default function CreateTrip() {
     setErrorMessage("");
     setIsUploading(true);
 
-    const addMinutes = trip.timeHours * 60;
-    trip.timeMinutes += addMinutes;
+    trip.timeMinutes = +trip.timeHours * 60 + +trip.timeMinutes;
 
     axios
       .post<TripListItem>(apiRoot + `/api/trips`, trip)
@@ -368,7 +368,7 @@ export default function CreateTrip() {
   }
 
   return (
-    <Container sx={{ margin: 2 }}>
+    <Box sx={{mt:2}}>
       <Typography variant="h4" color="darkblue">
         Create a new trip
       </Typography>
@@ -520,6 +520,6 @@ export default function CreateTrip() {
           * {errorMessage}
         </Typography>
       )}
-    </Container>
+    </Box>
   );
 }

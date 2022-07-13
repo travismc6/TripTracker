@@ -16,13 +16,13 @@ function App() {
     <>
       <CssBaseline/>
       <Header/>
-      <Box sx={{mr:10, ml:10}}>
+      <Container maxWidth="xl" >
         <Routes>
           <Route path='/' element={<TripListContainer />} />
           <Route path='/create' element={<CreateTrip />} />
           <Route path='/tripDetails/:id' element={<TripDetailsContainer  />} />
         </Routes>
-      </Box>
+      </Container>
     </>
   );
 }

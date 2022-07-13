@@ -87,7 +87,7 @@ export default function TripDetails({ trip }: Props) {
                 <TableCell>{getTimeString(trip.timeMinutes)}</TableCell>
               </TableRow>
             )}
-            {trip.timeMinutes > 0 && (
+            {trip.stage && (
               <TableRow>
                 <TableCell>
                   <b>Stage</b>
