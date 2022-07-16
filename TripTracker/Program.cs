@@ -17,7 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(connectionString));
+builder.Services.AddDbContext<DataContext>(x => x.UseNpgsql(connectionString));
 builder.Services.AddScoped(typeof(ITripService), typeof(TripService));
 builder.Services.AddScoped(typeof(ImageService));
 builder.Services.Configure<FormOptions>(options =>
@@ -29,6 +29,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 
 var app = builder.Build();
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.UseCors(x => x.AllowAnyHeader()
       .AllowAnyMethod()
@@ -41,6 +42,7 @@ app.UseCors(x => x.AllowAnyHeader()
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 
